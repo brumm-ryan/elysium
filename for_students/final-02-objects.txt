@@ -1,0 +1,29 @@
+(Required) Two kinds of objects created for this assignment:
+1. ???
+2. ???
+
+(Required) Five other kinds of objects that you created (possibly in previous assignments):
+3. ???
+4. ???
+5. ???
+6. ???
+7. ???
+
+(Optional) Backup Objects (more objects that you created, in case the ones above don't count):
+- ???
+- ???
+- ???
+
+At least on of each type of object:
+Building/structure: ???
+Vehicle: ???
+Natural Element: ???
+
+Object loaded from a model file:
+Model: ???
+
+An object with a shader that you wrote:
+ShaderObj: ???
+
+Other Objects that you would like to note:
+???
