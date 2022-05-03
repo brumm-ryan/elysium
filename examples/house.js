@@ -11,6 +11,7 @@ import * as T from "../libs/CS559-Three/build/three.module.js";
 import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
 import { GrObject } from "../libs/CS559-Framework/GrObject.js";
 import * as Geom from "../libs/CS559-Three/examples/jsm/deprecated/Geometry.js";
+import { Object3D } from "../libs/CS559-Three/build/three.module.js";
 
 let RectHouseCount = 0;
 let SqrHosueCount = 0;
@@ -180,6 +181,7 @@ export class SqrHouse extends GrObject {
         mesh.translateX(params.x || 0);
         mesh.translateY(params.y || 0);
         mesh.translateZ(params.z || 0);
+        mesh.rotateX(params.rotx || 0);
       super(`SqrHouse-${++SqrHosueCount}`, mesh);
   }
 }
@@ -543,6 +545,7 @@ export class GrTree extends GrObject {
     tree.translateX(params.x || 0);
     tree.translateY(params.y || 0);
     tree.translateZ(params.z || 0);
+    tree.lookAt(1,1,1);
     super(`Tree-${TreeCount}`,tree);
   }
 }

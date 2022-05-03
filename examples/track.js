@@ -34,13 +34,13 @@ export class CircularTrack extends GrObject {
     let group = new T.Group();
     group.add(mesh);
     group.translateX(params.x || 0);
-    group.translateY(params.bias || 0.1); // raise track above ground to avoid z-fight
+    group.translateY(params.y || 0.1); // raise track above ground to avoid z-fight
     group.translateZ(params.z || 0);
     super(`CircularTrack`, group);
 
     this.x = params.x || 0;
     this.z = params.z || 0;
-    this.y = params.bias || 0.1;
+    this.y = params.y || 0.1;
     this.r = radius;
   }
   eval(u) {
