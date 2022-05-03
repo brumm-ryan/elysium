@@ -11,7 +11,7 @@
 // It should be called from the onload function, after the world has been created
 
 /** These imports are for the examples - feel free to remove them */
-import { SimpleHouse } from "./house.js";
+import { SqrHouse, RectHouse, GrTree } from "./house.js";
 import { CircularTrack, TrackCube, TrackCar } from "./track.js";
 import { Helicopter, Helipad } from "./helicopter.js";
 import { ShinySculpture } from "./shinySculpture.js";
@@ -24,8 +24,9 @@ import { MorphTest } from "./morph.js";
 export function main(world) {
 // make two rows of houses, mainly to give something to look at
   for (let i = -19; i < 20; i += 5) {
-    world.add(new SimpleHouse({ x: i, z: -12 }));
-    world.add(new SimpleHouse({ x: i, z: 12 }));
+    world.add(new SqrHouse({ x: i, y:1, z: 12 }));
+    world.add(new GrTree({x:i+ 2, y:1, z:12 +  2 * (i % 2)}));
+    world.add(new RectHouse({ x: i, y:1, z: -12 }));
   }
 
   /** Race Track - with three things racing around */

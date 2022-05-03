@@ -12,97 +12,537 @@ import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
 import { GrObject } from "../libs/CS559-Framework/GrObject.js";
 import * as Geom from "../libs/CS559-Three/examples/jsm/deprecated/Geometry.js";
 
+let RectHouseCount = 0;
+let SqrHosueCount = 0;
+let TreeCount = 0;
+
 function uvTri(u1, v1, u2, v2, u3, v3) {
   return [new T.Vector2(u1, v1), new T.Vector2(u2, v2), new T.Vector2(u3, v3)];
 }
 
-/** Global (module) variables for simple Houses */
-let simpleHouseCount = 0;
-let simpleHouseGeometry; // one geometry for all
-let simpleHouseTexture;
-let simpleHouseMaterial;
-export class SimpleHouse extends GrObject {
+export class SqrHouse extends GrObject {
   constructor(params = {}) {
-    if (!simpleHouseGeometry) {
-      let w = 2;
-      let h = 2;
-      let d = 3;
-      let r = 1;
-      simpleHouseGeometry = new Geom.Geometry();
-      // front vertices
-      simpleHouseGeometry.vertices.push(new T.Vector3(0, 0, 0));
-      simpleHouseGeometry.vertices.push(new T.Vector3(w, 0, 0));
-      simpleHouseGeometry.vertices.push(new T.Vector3(w, h, 0));
-      simpleHouseGeometry.vertices.push(new T.Vector3(0, h, 0));
-      simpleHouseGeometry.vertices.push(new T.Vector3(w / 2, h + r, 0));
-      // back vertices
-      simpleHouseGeometry.vertices.push(new T.Vector3(0, 0, d));
-      simpleHouseGeometry.vertices.push(new T.Vector3(w, 0, d));
-      simpleHouseGeometry.vertices.push(new T.Vector3(w, h, d));
-      simpleHouseGeometry.vertices.push(new T.Vector3(0, h, d));
-      simpleHouseGeometry.vertices.push(new T.Vector3(w / 2, h + r, d));
-      // front surface
-      simpleHouseGeometry.faces.push(new Geom.Face3(0, 1, 2));
-      simpleHouseGeometry.faces.push(new Geom.Face3(0, 2, 3));
-      simpleHouseGeometry.faces.push(new Geom.Face3(3, 2, 4));
-      // back surface
-      simpleHouseGeometry.faces.push(new Geom.Face3(6, 5, 7));
-      simpleHouseGeometry.faces.push(new Geom.Face3(5, 8, 7));
-      simpleHouseGeometry.faces.push(new Geom.Face3(8, 9, 7));
-      // right side
-      simpleHouseGeometry.faces.push(new Geom.Face3(1, 6, 2));
-      simpleHouseGeometry.faces.push(new Geom.Face3(6, 7, 2));
-      // left side
-      simpleHouseGeometry.faces.push(new Geom.Face3(5, 0, 3));
-      simpleHouseGeometry.faces.push(new Geom.Face3(5, 3, 8));
-      // roof
-      simpleHouseGeometry.faces.push(new Geom.Face3(2, 7, 4));
-      simpleHouseGeometry.faces.push(new Geom.Face3(7, 9, 4));
-      simpleHouseGeometry.faces.push(new Geom.Face3(3, 4, 8));
-      simpleHouseGeometry.faces.push(new Geom.Face3(8, 4, 9));
-      // texture coords
-      let tfaces = [];
-      const q = 0.25;
-      const f = 0.5;
-      tfaces.push(uvTri(0, 0, q, 0, q, q)); // front
-      tfaces.push(uvTri(0, 0, q, q, 0, q));
-      tfaces.push(uvTri(0, q, q, q, 0, f));
+      let geometry = new T.BufferGeometry();
+      const vertices = new Float32Array( [
+          //front left
+          -1,1,1,
+          -1,-1,1,
+          1,-1,1,
+          //front right
+          1,-1,1,
+          1,1,1,
+          -1,1,1,
+          //left side left
+          -1,1,-1,
+          -1,-1,-1,
+          -1,-1,1,
+          //left side right
+          -1,-1,1,
+          -1,1,1,
+          -1,1,-1,
+          //right side left
+          1,1,1,
+          1,-1,1,
+          1,-1,-1,
+          //right side right
+          1,-1,-1,
+          1,1,-1,
+          1,1,1,
+          //top left
+          -1,1,-1,
+          -1,1,1,
+          1,1,1,
+          //top right
+          1,1,1,
+          1,1,-1,
+          -1,1,-1,
+          //back left
+          1,1,-1,
+          1,-1,-1,
+          -1,-1,-1,
+          //back right
+          -1,-1,-1,
+          -1,1,-1,
+          1,1,-1,
+          //bottom left
+          -1,-1,1,
+          -1,-1,-1,
+          1,-1,-1,
+          //bottom right
+          1,-1,-1,
+          1,-1,1,
+          -1,-1,1,
+          // roof front
+          -1,1,1,
+          1,1,1,
+          0,2,0,
+          // roof left
+          -1,1,-1,
+          -1,1,1,
+          0,2,0,
+          // roof back
+          1,1,-1,
+          -1,1,-1,
+          0,2,0,
+          // roof right
+          1,1,1,
+          1,1,-1,
+          0,2,0,
 
-      tfaces.push(uvTri(q, 0, 0, 0, q, q)); // back
-      tfaces.push(uvTri(0, 0, 0, q, q, q));
-      tfaces.push(uvTri(0, q, q, q, 0, f));
 
-      tfaces.push(uvTri(q, 0, f, 0, q, q));
-      tfaces.push(uvTri(f, 0, f, q, q, q));
+       ]);
+      
+      geometry.setAttribute('position',new T.BufferAttribute(vertices,3));
+      geometry.computeVertexNormals();
 
-      tfaces.push(uvTri(f, 0, q, 0, q, q));
-      tfaces.push(uvTri(f, 0, q, q, f, q));
+      const uvs = new Float32Array( [
+         //front left
+         1,1,
+         1,0,
+         0,0,
 
-      tfaces.push(uvTri(0, f, 1, f, 0, 1));
-      tfaces.push(uvTri(1, f, 1, 1, 0, 1));
+         0,0,
+         0,1,
+         1,1,
+         //front right
+         //left side left
+         0.5,0,
+         0.5, 1,
+         1, 1,
+         //left side right
+         1,1,
+         1, 0,
+         0.5,0,
+         //right side left
+         0.5,0,
+         0.5, 1,
+         1, 1,
+         //right side right
+         1,1,
+         1, 0,
+         0.5,0,
+         //top left
+         0,0,
+         0, 1/3,
+         1/3, 1/3,
+         //top right
+         1/3,1/3,
+         1/3, 0,
+         0,0,
+         //back left
+         0.5,0,
+         0.5, 1,
+         1, 1,
+         //back right
+         1,1,
+         1, 0,
+         0.5,0,
+         //bottom left
+         0,0,
+         0, 1/3,
+         1/3, 1/3,
+         //bottom right
+         1/3,1/3,
+         1/3, 0,
+         0,0,
+         // roof front
+         0,0,
+         0, 1/3,
+         1/3, 1/3,
+         // roof left
+         0,0,
+         0, 1/3,
+         1/3, 1/3,
+         // roof back
+         0,0,
+         0, 1/3,
+         1/3, 1/3,
+         // roof right
+         0,0,
+         0, 1/3,
+         1/3, 1/3,
 
-      tfaces.push(uvTri(0, f, 0, 1, 1, f));
-      tfaces.push(uvTri(1, f, 0, 1, 1, 1));
-      // now make the normals
-      simpleHouseGeometry.computeFaceNormals();
-      simpleHouseGeometry.faceVertexUvs = [tfaces];
-    }
-    if (!simpleHouseTexture) {
-      simpleHouseTexture = new T.TextureLoader().load("../examples/house.png");
-    }
-    if (!simpleHouseMaterial) {
-      simpleHouseMaterial = new T.MeshStandardMaterial({
-        color: "white",
-        map: simpleHouseTexture,
-        roughness: 1.0,
-        side: T.DoubleSide,
-      });
-    }
-    let simpleHouseBufferGeometry = simpleHouseGeometry.toBufferGeometry();
-    let mesh = new T.Mesh(simpleHouseBufferGeometry, simpleHouseMaterial);
-    mesh.translateX(params.x || 0);
-    mesh.translateY(params.y || 0);
-    mesh.translateZ(params.z || 0);
-    super(`SimpleHouse-${++simpleHouseCount}`, mesh);
+
+        ]);
+      
+      geometry.setAttribute('uv',new T.BufferAttribute(uvs,2));
+
+      let tl = new T.TextureLoader().load("../for_students/images/wooden_door_texture.jpg");
+
+      let material = new T.MeshStandardMaterial({
+          color: "white",
+          roughness: 0.55,
+          metalness: 0.1,
+          map:tl
+        });
+  
+        let mesh = new T.Mesh(geometry, material);
+        mesh.translateX(params.x || 0);
+        mesh.translateY(params.y || 0);
+        mesh.translateZ(params.z || 0);
+      super(`SqrHouse-${++SqrHosueCount}`, mesh);
+  }
+}
+
+export class RectHouse extends GrObject {
+  constructor(params = {}) {
+      let geometry = new T.BufferGeometry();
+      const vertices = new Float32Array( [
+          //front left
+          -1,1,1,
+          -1,-1,1,
+          1,-1,1,
+          //front right
+          1,-1,1,
+          1,1,1,
+          -1,1,1,
+
+          //front left 2
+          1,1,1,
+          1,-1,1,
+          3,-1,1,
+          //front right 2
+          3,-1,1,
+          3,1,1,
+          1,1,1,
+
+          //left side left
+          -1,1,-1,
+          -1,-1,-1,
+          -1,-1,1,
+          //left side right
+          -1,-1,1,
+          -1,1,1,
+          -1,1,-1,
+
+          //left side left 2
+          1,1,-1,
+          1,-1,-1,
+          1,-1,1,
+          //left side right 2
+          1,-1,1,
+          1,1,1,
+          1,1,-1,
+
+
+          //right side left
+          1,1,1,
+          1,-1,1,
+          1,-1,-1,
+          //right side right
+          1,-1,-1,
+          1,1,-1,
+          1,1,1,
+
+          //right side left 2
+          3,1,1,
+          3,-1,1,
+          3,-1,-1,
+          //right side right 2
+          3,-1,-1,
+          3,1,-1,
+          3,1,1,
+
+          //top left
+          -1,1,-1,
+          -1,1,1,
+          1,1,1,
+          //top right
+          1,1,1,
+          1,1,-1,
+          -1,1,-1,
+
+          //top left 2
+          1,1,-1,
+          1,1,1,
+          3,1,1,
+          //top right 2
+          3,1,1,
+          3,1,-1,
+          1,1,-1,
+
+          //back left
+          1,1,-1,
+          1,-1,-1,
+          -1,-1,-1,
+          //back right
+          -1,-1,-1,
+          -1,1,-1,
+          1,1,-1,
+
+          //back left 2
+          3,1,-1,
+          3,-1,-1,
+          1,-1,-1,
+          //back right 2
+          1,-1,-1,
+          1,1,-1,
+          3,1,-1,
+
+          //bottom left
+          -1,-1,1,
+          -1,-1,-1,
+          1,-1,-1,
+          //bottom right
+          1,-1,-1,
+          1,-1,1,
+          -1,-1,1,
+
+          //bottom left 2
+          1,-1,1,
+          1,-1,-1,
+          3,-1,-1,
+          //bottom right 2
+          3,-1,-1,
+          3,-1,1,
+          1,-1,1,
+
+          //front roof left
+          -1,1,1,
+          1,1,1,
+          -1,2,0,
+          //front roof right
+          1,1,1,
+          1,2,0,
+          -1,2,0,
+
+          //front roof left 2
+          1,1,1,
+          3,1,1,
+          1,2,0,
+          //front roof right 2
+          3,1,1,
+          3,2,0,
+          1,2,0,
+
+          //back roof left
+          3,1,-1,
+          -1,1,-1,
+          3,2,0,
+          //back roof right
+          -1,1,-1,
+          -1,2,0,
+          3,2,0,
+
+          //left roof end
+          -1,1,-1,
+          -1,1,1,
+          -1,2,0,
+
+          //right roof end
+          3,1,1,
+          3,1,-1,
+          3,2,0
+
+
+       ]);
+      
+      geometry.setAttribute('position',new T.BufferAttribute(vertices,3));
+      geometry.computeVertexNormals();
+
+      const uvs = new Float32Array( [
+           //front left
+           0.5,1,
+           0.5,0,
+           0,0,
+          //front right
+           0,0,
+          0,1,
+          0.5,1,
+           //front left 2
+           1,1,
+           1,0,
+           0.5,0,
+           //front right 2
+           0.5,0,
+           0.5,1,
+           1,1,
+           
+
+           //left side left
+           1,1,
+           1,0,
+           0.5,0,
+           //left side right
+           0.5,0,
+           0.5,1,
+           1,1,
+
+           //left side left 2
+           1,1,
+           1,0,
+           0.5,0,
+           //left side right 2
+           0.5,0,
+           0.5,1,
+           1,1,
+
+
+           //right side left
+           1,1,
+           1,0,
+           0.5,0,
+           //right side right
+           0.5,0,
+           0.5,1,
+           1,1,
+
+           //right side left 2
+           1,1,
+           1,0,
+           0.5,0,
+           //right side right 2
+           0.5,0,
+           0.5,1,
+           1,1,
+
+           //top left
+           1,1,
+           1,0,
+           0.5,0,
+           //top right
+           0.5,0,
+           0.5,1,
+           1,1,
+
+           //top left 2
+           1,1,
+           1,0,
+           0.5,0,
+           //top right 2
+           0.5,0,
+           0.5,1,
+           1,1,
+
+           //back left
+           0.5,0,
+           0.5,1,
+           1,1,
+           //back right
+           1,1,
+           1,0,
+           0.5,0,
+
+           //back left 2
+           1,1,
+           1,0,
+           0.5,0,
+           //back right 2
+           0.5,0,
+           0.5,1,
+           1,1,
+
+           //bottom left
+           -1,-1,
+           -1,-1,
+           1,-1,
+           //bottom right
+           1,-1,
+           1,-1,
+           -1,-1,
+
+           //bottom left 2
+           1,-1,
+           1,-1,
+           3,-1,
+           //bottom right 2
+           3,-1,
+           3,-1,
+           1,-1,
+
+           //front roof left
+           3,1,
+           -1,1,
+           3,2,
+           //front roof right
+           -1,1,
+           -1,2,
+           3,2,
+
+           //front roof left 2
+           3,1,
+           -1,1,
+           3,2,
+           //front roof right 2
+           -1,1,
+           -1,2,
+           3,2,
+           //back roof left
+           3,1,
+           -1,1,
+           3,2,
+           //back roof right
+           -1,1,
+           -1,2,
+           3,2,
+
+           //left roof end
+           -1,1,
+           -1,1,
+           -1,2,
+
+           //right roof end
+           3,1,
+           3,1,
+           3,2,
+
+
+
+         ]);
+       
+       geometry.setAttribute('uv',new T.BufferAttribute(uvs,2));
+
+       let tl = new T.TextureLoader().load("../for_students/images/wooden_door_texture.jpg");
+
+      let material = new T.MeshStandardMaterial({
+          color: "white",
+          roughness: 0.55,
+          metalness: 0.1,
+          map:tl
+        });
+  
+        let mesh = new T.Mesh(geometry, material);
+        mesh.translateX(params.x || 0);
+        mesh.translateY(params.y || 0);
+        mesh.translateZ(params.z || 0);
+      super(`RectHouse-${++RectHouseCount}`, mesh);
+  }
+}
+
+export class GrTree extends GrObject {
+  
+  constructor(params = {}) {
+    let tree = new T.Group();
+
+    let stemMaterial = new T.MeshLambertMaterial( { color: 0x7D5A4F } );
+    let leaveLightMaterial = new T.MeshLambertMaterial( { color: 0xA2FF7A } );
+
+    let leafGeo = new T.BoxBufferGeometry(1,1,1);
+    let stemGeo = new T.BoxBufferGeometry(0.5,4,0.5);
+
+    let stem = new T.Mesh(stemGeo, stemMaterial);
+    let leaf1 = new T.Mesh(leafGeo, leaveLightMaterial);
+    let leaf2 = new T.Mesh(leafGeo, leaveLightMaterial);
+    let leaf3 = new T.Mesh(leafGeo, leaveLightMaterial);
+    let leaf4 = new T.Mesh(leafGeo, leaveLightMaterial);
+
+    tree.add(stem);
+    tree.add(leaf1);
+    leaf1.translateY(4);
+    leaf1.scale.set(1, 4, 1);
+    tree.add(leaf2);
+    leaf2.translateY(5);
+    leaf2.translateX(1);
+    tree.add(leaf3);
+    leaf3.translateY(5);
+    leaf3.translateZ(1);
+    tree.add(leaf4);
+    leaf4.translateY(6);
+    leaf4.translateX(-1);
+    leaf4.translateZ(-0.5);
+    tree.translateX(params.x || 0);
+    tree.translateY(params.y || 0);
+    tree.translateZ(params.z || 0);
+    super(`Tree-${TreeCount}`,tree);
   }
 }
