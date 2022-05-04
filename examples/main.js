@@ -13,12 +13,14 @@
 /** These imports are for the examples - feel free to remove them */
 import { SqrHouse, RectHouse, GrTree } from "./house.js";
 import {SpaceStation} from "./spaceStation.js";
-import { SmallPlanet} from "./planet.js";
+import { OrbitPlanet, SmallPlanet} from "./planet.js";
 import { CircularTrack, SpaceTrain } from "./track.js";
 import { Helicopter, Helipad } from "./helicopter.js";
 import { ShinySculpture } from "./shinySculpture.js";
+import { GrObject } from "../libs/CS559-Framework/GrObject.js";
 import { MorphTest } from "./morph.js";
 import * as T from "../libs/CS559-Three/build/three.module.js";
+import { Group, Vector3 } from "../libs/CS559-Three/build/three.module.js";
 
 /********************************************************************** */
 /** EXAMPLES - student should not use this! It is just for reference    */
@@ -38,10 +40,16 @@ export function main(world) {
 // make two rows of houses, mainly to give something to look at
   let ssRad = 15;
   let spaceStation = new SpaceStation({radius:ssRad, tube:5}); 
+  let moon = new OrbitPlanet({radius:10, x: -60, texturePath:"../for_students/images/moon-texture.jpg", orbitRadius:110});
+  //world.add(moon);
   world.add(new SmallPlanet({radius:40, x:55}));
   world.add(spaceStation);
+
+  world.add(moon);
+  
   let numHouses = 16.0;
   let numTrees = 5;
+  //add houses to elysium
   for (let i = 0; i < numHouses; i += 1) {
     let angle = ((numHouses) / (Math.PI * 2)) * i
     let x = spaceStation.objects[0].position.x + Math.cos(angle) * ssRad;
@@ -52,7 +60,7 @@ export function main(world) {
     //world.add(new GrTree({x:i+ 2, y:1, z:12 +  2 * (i % 2)}));
     //world.add(new RectHouse({ x: i, y:1, z: -12 }));
   }
-
+  //add trees to elysium
   for (let i = 0; i < numTrees; i += 1) {
     let angle = (((numTrees  - 1) / (Math.PI)) * i) +  (Math.PI / 5)
     let x = spaceStation.objects[0].position.x + Math.cos(angle) * ssRad;
@@ -94,5 +102,6 @@ export function main(world) {
   // these are testing objects
   world.add(new ShinySculpture(world));
   world.add(new MorphTest({ x: 10, y: 3, r: 2 }));
+
 }
 
