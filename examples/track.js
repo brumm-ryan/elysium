@@ -12,7 +12,7 @@ import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
 import { GrObject } from "../libs/CS559-Framework/GrObject.js";
 import * as Loaders from "../libs/CS559-Framework/loaders.js";
 import { GrCube } from "../libs/CS559-Framework/SimpleObjects.js";
-import { Group } from "../libs/CS559-Three/build/three.module.js";
+import { BoxBufferGeometry, Group } from "../libs/CS559-Three/build/three.module.js";
 
 /**
  * This is a really simple track - just a circle
@@ -63,24 +63,47 @@ export class CircularTrack extends GrObject {
  * A simple object to go around a track - key thing, it knows the track so it can ask the track
  * where it should be
  */
-export class SpaceTrain extends GrCube {
-  constructor(track, params = {color:"#808080"}) {
-    let g = new Group();
-    super({color:params.color});
-    this.track = track;
+let SpaceTrainCount = 0;
+
+export class SpaceTrain extends GrObject {
+  constructor(params = {}) {
+
+    let geometry = new BoxBufferGeometry(1,1,1);
+    let mesh = new T.Mesh(geometry, new T.MeshStandardMaterial({ color: params.color ?? '#808080' }));
+
+    super(`SpaceTrain-${++SpaceTrainCount}`, mesh);
     this.u = 0;
     this.rideable = this.objects[0];
+    this.parentPos = params.parentPos;
+    this.radius = params.radius;
+    this.quat = params.quaternion;
+    this.y = params.y;
+    
   }
   stepWorld(delta, timeOfDay) {
     this.u += delta / 2000;
-    let pos = this.track.eval(this.u);
+    let pos = this.eval(this.u, this.parentPos, this.radius);
     // remember, the center of the cube needs to be above ground!
+    this.objects[0].rotation.setFromQuaternion(this.quat);
     this.objects[0].position.set(pos[0], pos[1], pos[2]);
-    let dir = this.track.tangent(this.u);
+    let dir = this.tangent(this.u);
     // since we can't easily construct the matrix, figure out the rotation
     // easy since this is 2D!
     let zAngle = Math.atan2(dir[2], dir[0]);
     // turn the object so the Z axis is facing in that direction
     this.objects[0].rotation.y = -zAngle - Math.PI / 2;
+  }
+  eval(u, pos, r) {
+    let p = u * 2 * Math.PI;
+    return [
+      pos.x + (r + 0.5) * Math.cos(p),
+      pos.y - this.y,
+      pos.z + (r + 0.5) * Math.sin(p),
+    ];
+  }
+  tangent(u) {
+    let p = u * 2 * Math.PI;
+    // unit tangent vector - not the real derivative
+    return [Math.sin(p), 0, -Math.cos(p)];
   }
 }

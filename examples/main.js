@@ -42,6 +42,9 @@ export function main(world) {
   let ssRad = 15;
   let spaceStation = new SpaceStation({radius:ssRad, tube:5}); 
   let moon = new OrbitPlanet({radius:10, x: -60, texturePath:"../for_students/images/moon-texture.jpg", orbitRadius:110});
+
+  //add center spire to elysium
+
   //create some randomly orbiting asteroids
   let numAsteroids = 5;
   for(let i = 0; i < numAsteroids; i++) {
@@ -52,80 +55,94 @@ export function main(world) {
   world.add(spaceStation);
 
   //build a couple satelites
-  let numSatelites = 1;
+  let numSatelites = 2;
 
   let sateliteMat = shaderMaterial("../examples/satelite.vs", "../examples/satelite.fs", {
     side: T.DoubleSide,
     uniforms: {
       radius: { value: 0.1 },
-      dots: { value: 3.0 },
+      dots: { value: 5.0 },
       light: { value: new T.Vector3(0.85, 0.85, 0.85) },
-      dark: { value: new T.Vector3(0.1, 0.1, 0.1) },
+      dark: { value: new T.Vector3(0.5, 0.5, 0.5) },
       disp: { value: 3.0 },
-      blur: { value: 0.2 }
+      blur: { value: 0.1 }
     },
   });
   
-  for(let i =0; i < numSatelites; i++) {
-    world.add(new Satelite({x:5,y:5,z:5, radius:1, material:sateliteMat}));
+  for(let i = 0; i < numSatelites; i++) {
+    world.add(new Satelite({x:-40,y:30 - 20 * i, radius:2, material:sateliteMat, orbitRadius:20, u:i * 2}));
   }
 
 
-  let numHouses = 16.0;
-  let numTrees = 5;
-  //add houses and trees to elysium
-  for (let i = 0; i < numHouses; i += 1) {
-    let angle = ((numHouses) / (Math.PI * 2)) * i
-    let x = spaceStation.objects[0].position.x + Math.cos(angle) * ssRad;
-    let z = spaceStation.objects[0].position.y + Math.sin(angle) * ssRad;
-    let y = spaceStation.objects[0].position.z + 4;
-    let house = new SqrHouse({ x: x, y:y, z:z, xrot:Math.PI/2});
-    world.add(house);
-    //world.add(new GrTree({x:i+ 2, y:1, z:12 +  2 * (i % 2)}));
-    //world.add(new RectHouse({ x: i, y:1, z: -12 }));
-  }
-  //add trees to elysium
-  for (let i = 0; i < numTrees; i += 1) {
-    let angle = (((numTrees  - 1) / (Math.PI)) * i) +  (Math.PI / 5)
-    let x = spaceStation.objects[0].position.x + Math.cos(angle) * ssRad;
-    let z = spaceStation.objects[0].position.y + Math.sin(angle) * ssRad;
-    let y = spaceStation.objects[0].position.z + 4;
-    let tree = new GrTree({ x: x, y:y, z:z, });
-    world.add(tree);
-    //world.add(new GrTree({x:i+ 2, y:1, z:12 +  2 * (i % 2)}));
-    //world.add(new RectHouse({ x: i, y:1, z: -12 }));
-  }
+  // let numHouses = 16.0;
+  // let numTrees = 5;
+  // //add houses and trees to elysium
+  // for (let i = 0; i < numHouses; i += 1) {
+  //   let angle = ((numHouses) / (Math.PI * 2)) * i
+  //   let x = spaceStation.objects[0].position.x + Math.cos(angle) * ssRad;
+  //   let z = spaceStation.objects[0].position.y + Math.sin(angle) * ssRad;
+  //   let y = spaceStation.objects[0].position.z + 4;
+  //   let house = new SqrHouse({ x: x, y:y, z:z, xrot:Math.PI/2});
+  //   world.add(house);
+  //   //world.add(new GrTree({x:i+ 2, y:1, z:12 +  2 * (i % 2)}));
+  //   //world.add(new RectHouse({ x: i, y:1, z: -12 }));
+  // }
+  // //add trees to elysium
+  // for (let i = 0; i < numTrees; i += 1) {
+  //   let angle = (((numTrees  - 1) / (Math.PI)) * i) +  (Math.PI / 5)
+  //   let x = spaceStation.objects[0].position.x + Math.cos(angle) * ssRad;
+  //   let z = spaceStation.objects[0].position.y + Math.sin(angle) * ssRad;
+  //   let y = spaceStation.objects[0].position.z + 4;
+  //   let tree = new GrTree({ x: x, y:y, z:z, });
+  //   world.add(tree);
+  //   //world.add(new GrTree({x:i+ 2, y:1, z:12 +  2 * (i % 2)}));
+  //   //world.add(new RectHouse({ x: i, y:1, z: -12 }));
+  // }
 
-  //Add space train to elysium to help citizens navigate
-  let tx = spaceStation.objects[0].position.x;
-  let ty = spaceStation.objects[0].position.y;
-  let tz = spaceStation.objects[0].position.z;
-  let track = new CircularTrack({radius:18, x:tx, y:ty, z:tz});
+  // //Add space train to elysium to help citizens navigate
+  
   //train 1
-  let tc1 = new SpaceTrain(track);
-  let tc2 = new SpaceTrain(track);
-  let tc3 = new SpaceTrain(track);
-  // place things are different points on the track
+  console.log(spaceStation.objects[0].children[0].quaternion);
+  let ssGlobal = spaceStation.objects[0].position;
+  console.log('global: ');
+  console.log(ssGlobal);
+  let quat = spaceStation.objects[0].children[0].quaternion;
+  let tc1 = new SpaceTrain({parentPos:ssGlobal, quaternion:quat, radius:17.5, y:2});
+  let tc2 = new SpaceTrain({parentPos:ssGlobal, quaternion:quat, radius:17.5, y:2});
+  let tc3 = new SpaceTrain({parentPos:ssGlobal, quaternion:quat, radius:17.5,  y:2});
+  // // place things are different points on the track
   tc2.u = 0.01;
   tc3.u = 0.02;
-  // and make sure they are in the world
-  world.add(track);
+  // // and make sure they are in the world
   world.add(tc1);
   world.add(tc2);
   world.add(tc3);
 
-  /** Helicopter - first make places for it to land*/
-  world.add(new Helipad(-15, 0, 0));
-  world.add(new Helipad(15, 0, 0));
-  world.add(new Helipad(0, 0, -17));
-  world.add(new Helipad(0, 0, 17));
-  let copter = new Helicopter();
-  world.add(copter);
-  copter.getPads(world.objects);
+  let quat2 = spaceStation.objects[0].children[0].quaternion;
+  let tc4 = new SpaceTrain({parentPos:ssGlobal, quaternion:quat, radius:17.5, y:-2});
+  let tc5 = new SpaceTrain({parentPos:ssGlobal, quaternion:quat, radius:17.5, y:-2});
+  let tc6 = new SpaceTrain({parentPos:ssGlobal, quaternion:quat, radius:17.5,  y:-2});
+  // // place things are different points on the track
+  tc4.u = 0.5
+  tc5.u = 0.51;
+  tc6.u = 0.52;
+  // // and make sure they are in the world
+  world.add(tc4);
+  world.add(tc5);
+  world.add(tc6);
 
-  // these are testing objects
-  world.add(new ShinySculpture(world));
-  world.add(new MorphTest({ x: 10, y: 3, r: 2 }));
+  // /** Helicopter - first make places for it to land*/
+  // world.add(new Helipad(-15, 0, 0));
+  // world.add(new Helipad(15, 0, 0));
+  // world.add(new Helipad(0, 0, -17));
+  // world.add(new Helipad(0, 0, 17));
+  // let copter = new Helicopter();
+  // world.add(copter);
+  // copter.getPads(world.objects);
+
+  // // these are testing objects
+  // world.add(new ShinySculpture(world));
+  // world.add(new MorphTest({ x: 10, y: 3, r: 2 }));
 
 }
 

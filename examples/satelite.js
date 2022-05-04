@@ -19,15 +19,26 @@ export class Satelite extends GrObject {
     let radius = params.radius || 10;
     let sphere = new T.SphereBufferGeometry(radius);
     let mesh = new T.Mesh(sphere, params.material);
-        mesh.translateX(params.x || 10);
+        mesh.translateX(params.x || 5);
         mesh.translateY(params.y || 20);
-        mesh.translateZ(params.z || 10);
+        mesh.translateZ(params.z || 20);
     super(`Satelite-${++SateliteCount}`, mesh);
+    this.u = params.u;
+    this.orbitRadius = params.orbitRadius || 10
     
 
   }
   stepWorld(delta, timeOfDay) {
-    this.objects[0].rotateY(delta * 0.0001);
-    //this.objects[0].rotateOnWorldAxis(new Vector3(1,0,0), delta * 0.01 * Math.PI);
+    this.objects[0].rotateY(delta * 0.001);
+      this.objects[0].translateX(Math.sin(this.u) * 0.4 );
+      this.objects[0].translateZ(Math.cos(this.u) * 0.4);
+      //this.objects[0].translateY(2, Math.sin(this.u) * 0.0001);
+    //  if(this.isAsteroid) {
+    //     this.objects[0].position.setComponent(1, Math.sin(this.u * this.asteroidRandomness) * this.orbitRadius);
+    //   }
+    this.u += delta;
+    if(this.u > Math.PI * 2) {
+        this.u = 0;
+    }
   }
 }

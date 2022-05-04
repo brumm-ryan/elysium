@@ -29,7 +29,7 @@ import {main} from "../examples/main.js";
 let world = new GrWorld({
     width: 800,
     height: 600,
-    groundplanesize: 20 // make the ground plane big enough for a world of stuff
+    groundplane: false // make the ground plane big enough for a world of stuff
 });
 
 // put stuff into the world
@@ -52,9 +52,9 @@ function highlight(obName) {
 }
 // of course, the student should highlight their own objects, not these
 //highlight("SqrHouse-5");
-highlight("Helicopter-0");
+//highlight("Helicopter-0");
 //highlight("Track Car");
-highlight("MorphTest");
+//highlight("MorphTest");
 
 ///////////////////////////////////////////////////////////////
 // build and run the UI
