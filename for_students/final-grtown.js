@@ -53,7 +53,7 @@ function highlight(obName) {
 // of course, the student should highlight their own objects, not these
 //highlight("SqrHouse-5");
 highlight("Helicopter-0");
-highlight("Track Car");
+//highlight("Track Car");
 highlight("MorphTest");
 
 ///////////////////////////////////////////////////////////////

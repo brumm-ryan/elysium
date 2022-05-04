@@ -12,6 +12,7 @@ import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
 import { GrObject } from "../libs/CS559-Framework/GrObject.js";
 import * as Loaders from "../libs/CS559-Framework/loaders.js";
 import { GrCube } from "../libs/CS559-Framework/SimpleObjects.js";
+import { Group } from "../libs/CS559-Three/build/three.module.js";
 
 /**
  * This is a really simple track - just a circle
@@ -46,9 +47,9 @@ export class CircularTrack extends GrObject {
   eval(u) {
     let p = u * 2 * Math.PI;
     return [
-      this.x + this.r * Math.cos(p),
+      this.x + (this.r + 0.5) * Math.cos(p),
       this.y,
-      this.z + this.r * Math.sin(p),
+      this.z + (this.r + 0.5) * Math.sin(p),
     ];
   }
   tangent(u) {
@@ -62,9 +63,10 @@ export class CircularTrack extends GrObject {
  * A simple object to go around a track - key thing, it knows the track so it can ask the track
  * where it should be
  */
-export class TrackCube extends GrCube {
-  constructor(track, params = {}) {
-    super({});
+export class SpaceTrain extends GrCube {
+  constructor(track, params = {color:"#808080"}) {
+    let g = new Group();
+    super({color:params.color});
     this.track = track;
     this.u = 0;
     this.rideable = this.objects[0];
@@ -73,37 +75,6 @@ export class TrackCube extends GrCube {
     this.u += delta / 2000;
     let pos = this.track.eval(this.u);
     // remember, the center of the cube needs to be above ground!
-    this.objects[0].position.set(pos[0], 0.5 + pos[1], pos[2]);
-    let dir = this.track.tangent(this.u);
-    // since we can't easily construct the matrix, figure out the rotation
-    // easy since this is 2D!
-    let zAngle = Math.atan2(dir[2], dir[0]);
-    // turn the object so the Z axis is facing in that direction
-    this.objects[0].rotation.y = -zAngle - Math.PI / 2;
-  }
-}
-
-/**
- * A Less Simple Object to go around the track
- */
-export class TrackCar extends Loaders.FbxGrObject {
-  constructor(track) {
-    super({
-      fbx: "../examples/assets/teeny_racecar.fbx",
-      norm: 2.0,
-      name: "Track Car",
-    });
-    this.track = track;
-    this.u = 0;
-    // the fbx loader puts the car on the ground - we need a ride point above the ground
-    this.ridePoint = new T.Object3D();
-    this.ridePoint.translateY(0.5);
-    this.objects[0].add(this.ridePoint);
-    this.rideable = this.ridePoint;
-  }
-  stepWorld(delta, timeOfDay) {
-    this.u += delta / 2000;
-    let pos = this.track.eval(this.u);
     this.objects[0].position.set(pos[0], pos[1], pos[2]);
     let dir = this.track.tangent(this.u);
     // since we can't easily construct the matrix, figure out the rotation

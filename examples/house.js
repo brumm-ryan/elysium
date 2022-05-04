@@ -545,7 +545,6 @@ export class GrTree extends GrObject {
     tree.translateX(params.x || 0);
     tree.translateY(params.y || 0);
     tree.translateZ(params.z || 0);
-    tree.lookAt(1,1,1);
     super(`Tree-${TreeCount}`,tree);
   }
 }
