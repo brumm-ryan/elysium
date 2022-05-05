@@ -64,6 +64,7 @@ export class OrbitPlanet extends GrObject {
       this.u = params.u || 0;
       this.orbitRadius = params.orbitRadius;
       this.isAsteroid = params.isAsteroid;
+      this.rideable = this.objects[0];
       if(params.isAsteroid) {
         this.asteroidRandomness = Math.random();
       } else {

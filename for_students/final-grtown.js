@@ -19,6 +19,7 @@ import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
 import { WorldUI } from "../libs/CS559-Framework/WorldUI.js";
 
 import {main} from "../examples/main.js";
+import { Vector3 } from "../libs/CS559-Three/build/three.module.js";
 
 /**m
  * The Graphics Town Main -
@@ -29,7 +30,10 @@ import {main} from "../examples/main.js";
 let world = new GrWorld({
     width: 800,
     height: 600,
-    groundplane: false // make the ground plane big enough for a world of stuff
+    groundplane: false, // make the ground plane big enough for a world of stuff
+    lookat: new Vector3(-20,30,-20),
+    lookfrom: new Vector3(-90, 30, -20)
+
 });
 
 // put stuff into the world

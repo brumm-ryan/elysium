@@ -12,6 +12,7 @@
 
 /** These imports are for the examples - feel free to remove them */
 import { SqrHouse, RectHouse, GrTree } from "./house.js";
+import { SpaceMan } from "./spaceman.js";
 import { Satelite } from "./satelite.js";
 import {SpaceStation} from "./spaceStation.js";
 import { OrbitPlanet, SmallPlanet} from "./planet.js";
@@ -69,8 +70,10 @@ export function main(world) {
   });
   
   for(let i = 0; i < numSatelites; i++) {
-    world.add(new Satelite({x:-40,y:30 - 20 * i, radius:2, material:sateliteMat, orbitRadius:20, u:i * 2}));
+    let s = new Satelite({x:-20,y:30 - 20 * i,z:-20, radius:2, material:sateliteMat, orbitRadius:20, u:i * 2});
+    world.add(s);
   }
+
 
   // //Add space train to elysium to help citizens navigate
   
@@ -109,6 +112,11 @@ export function main(world) {
   world.add(spaceShip);
   spaceShip.setPos(-20,20,-20);
   spaceShip.setScale(0.7,0.7,0.7);
+
+  let spaceman = new SpaceMan();
+  world.add(spaceman);
+  spaceman.setPos(-30,25,-20);
+  spaceman.setScale(0.4,0.4,0.4);
 
 }
 
