@@ -25,6 +25,8 @@ import * as T from "../libs/CS559-Three/build/three.module.js";
 import { Group, Vector3 } from "../libs/CS559-Three/build/three.module.js";
 import { shaderMaterial } from "../libs/CS559-Framework/shaderHelper.js";
 import { SpaceShip } from "./spaceShip.js";
+import { droneCraft } from "./drone.js";
+
 
 /********************************************************************** */
 /** EXAMPLES - student should not use this! It is just for reference    */
@@ -117,6 +119,10 @@ export function main(world) {
   world.add(spaceman);
   spaceman.setPos(-30,25,-20);
   spaceman.setScale(0.4,0.4,0.4);
+
+  let d = new droneCraft();
+  d.objects[0].position.set(-20,20,-20);
+  world.add(d);
 
 }
 

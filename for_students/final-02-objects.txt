@@ -1,13 +1,15 @@
 (Required) Two kinds of objects created for this assignment:
-1. ???
-2. ???
+1. SpaceStation-0* - a torus geometry with a metallic pattern texture mapped onto it to be the main ring of Elysium 
+2. OrbitPlanet-2* - a sphere mapped with a moon texture that's animated in an elipse pattern around space station and earth.
 
 (Required) Five other kinds of objects that you created (possibly in previous assignments):
-3. ???
-4. ???
-5. ???
-6. ???
-7. ???
+3. GrTree - blocked tree on space station
+4. SqrHouse - mapped texture houses using uv matching from workbook 9
+5. Drone-1* - quadcopter drone from workbook 7 
+6. OrbitPlanet* - sphere mapped with fiery texture that has randomly generated ellipse orbit around earth.
+7. SpaceTrain-1* - a connected segment of blocks that spin while circling outer shell of Elysium as a train.
+
+***GrTree and SqrHouse aren't individually viewable through the ui since they're subobjects of the space station so they can spin with the station but you can see them clearly if you select spacestation-0***
 
 (Optional) Backup Objects (more objects that you created, in case the ones above don't count):
 - ???
@@ -15,15 +17,14 @@
 - ???
 
 At least on of each type of object:
-Building/structure: ???
-Vehicle: ???
-Natural Element: ???
+Building/structure: SqrHouse
+Vehicle: SpaceTrain-1 and Drone-1
+Natural Element: GrTree
 
-Object loaded from a model file:
-Model: ???
+Object loaded from a model file: SpaceShip tiefighter.obj
+Model: A model of a tie fighter from star wars
 
 An object with a shader that you wrote:
-ShaderObj: ???
+ShaderObj: Satelite.js, Satelite.vs, Satelite.fs
 
 Other Objects that you would like to note:
-???
