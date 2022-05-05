@@ -1,3 +1,11 @@
 List all attributions here, this include "self-attributions":
 
-???
+tie fighter -> https://www.cgtrader.com/free-3d-models/space/spaceship/tie-fighter-e711f55c-8aa7-4c02-a006-d847e3214418
+
+skybox images -> https://github.com/jacobcarver/galaxy-skybox/blob/master/initialize.js
+
+space station texture -> https://stock.adobe.com/search?k=spaceship+texture&asset_id=320449039
+
+
+Drone-1 - from myself workbook 7
+SqrHouse - from myself workbook 9
