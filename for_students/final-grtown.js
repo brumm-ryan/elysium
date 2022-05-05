@@ -55,10 +55,16 @@ function highlight(obName) {
     }
 }
 // of course, the student should highlight their own objects, not these
+highlight("SpaceStation-0");
 highlight("SpaceShip");
 highlight("Satelite-1");
 highlight("OrbitPlanet-1");
-//highlight("MorphTest");
+highlight("SpaceTrain-1");
+highlight("SpaceTrain-1");
+highlight("SmallPlanet-0");
+highlight("Drone-1");
+highlight("SpaceTrain-1");
+
 
 ///////////////////////////////////////////////////////////////
 // build and run the UI
