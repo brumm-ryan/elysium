@@ -23,6 +23,7 @@ import { MorphTest } from "./morph.js";
 import * as T from "../libs/CS559-Three/build/three.module.js";
 import { Group, Vector3 } from "../libs/CS559-Three/build/three.module.js";
 import { shaderMaterial } from "../libs/CS559-Framework/shaderHelper.js";
+import { SpaceShip } from "./spaceShip.js";
 
 /********************************************************************** */
 /** EXAMPLES - student should not use this! It is just for reference    */
@@ -42,8 +43,6 @@ export function main(world) {
   let ssRad = 15;
   let spaceStation = new SpaceStation({radius:ssRad, tube:5}); 
   let moon = new OrbitPlanet({radius:10, x: -60, texturePath:"../for_students/images/moon-texture.jpg", orbitRadius:110});
-
-  //add center spire to elysium
 
   //create some randomly orbiting asteroids
   let numAsteroids = 5;
@@ -72,32 +71,6 @@ export function main(world) {
   for(let i = 0; i < numSatelites; i++) {
     world.add(new Satelite({x:-40,y:30 - 20 * i, radius:2, material:sateliteMat, orbitRadius:20, u:i * 2}));
   }
-
-
-  // let numHouses = 16.0;
-  // let numTrees = 5;
-  // //add houses and trees to elysium
-  // for (let i = 0; i < numHouses; i += 1) {
-  //   let angle = ((numHouses) / (Math.PI * 2)) * i
-  //   let x = spaceStation.objects[0].position.x + Math.cos(angle) * ssRad;
-  //   let z = spaceStation.objects[0].position.y + Math.sin(angle) * ssRad;
-  //   let y = spaceStation.objects[0].position.z + 4;
-  //   let house = new SqrHouse({ x: x, y:y, z:z, xrot:Math.PI/2});
-  //   world.add(house);
-  //   //world.add(new GrTree({x:i+ 2, y:1, z:12 +  2 * (i % 2)}));
-  //   //world.add(new RectHouse({ x: i, y:1, z: -12 }));
-  // }
-  // //add trees to elysium
-  // for (let i = 0; i < numTrees; i += 1) {
-  //   let angle = (((numTrees  - 1) / (Math.PI)) * i) +  (Math.PI / 5)
-  //   let x = spaceStation.objects[0].position.x + Math.cos(angle) * ssRad;
-  //   let z = spaceStation.objects[0].position.y + Math.sin(angle) * ssRad;
-  //   let y = spaceStation.objects[0].position.z + 4;
-  //   let tree = new GrTree({ x: x, y:y, z:z, });
-  //   world.add(tree);
-  //   //world.add(new GrTree({x:i+ 2, y:1, z:12 +  2 * (i % 2)}));
-  //   //world.add(new RectHouse({ x: i, y:1, z: -12 }));
-  // }
 
   // //Add space train to elysium to help citizens navigate
   
@@ -131,18 +104,11 @@ export function main(world) {
   world.add(tc5);
   world.add(tc6);
 
-  // /** Helicopter - first make places for it to land*/
-  // world.add(new Helipad(-15, 0, 0));
-  // world.add(new Helipad(15, 0, 0));
-  // world.add(new Helipad(0, 0, -17));
-  // world.add(new Helipad(0, 0, 17));
-  // let copter = new Helicopter();
-  // world.add(copter);
-  // copter.getPads(world.objects);
 
-  // // these are testing objects
-  // world.add(new ShinySculpture(world));
-  // world.add(new MorphTest({ x: 10, y: 3, r: 2 }));
+  let spaceShip = new SpaceShip();
+  world.add(spaceShip);
+  spaceShip.setPos(-20,20,-20);
+  spaceShip.setScale(0.7,0.7,0.7);
 
 }
 

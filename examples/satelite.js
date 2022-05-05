@@ -30,7 +30,7 @@ export class Satelite extends GrObject {
   }
   stepWorld(delta, timeOfDay) {
     this.objects[0].rotateY(delta * 0.001);
-      this.objects[0].translateX(Math.sin(this.u) * 0.4 );
+      this.objects[0].translateX(Math.sin(this.u) * 0.4);
       this.objects[0].translateZ(Math.cos(this.u) * 0.4);
       //this.objects[0].translateY(2, Math.sin(this.u) * 0.0001);
     //  if(this.isAsteroid) {
