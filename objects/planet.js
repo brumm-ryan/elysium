@@ -17,8 +17,8 @@ let SmallPlanetCount = 0;
 export class SmallPlanet extends GrObject {
     constructor(params = {}) {
     let radius = params.radius || 10;
-    let texturePath = params.texturePath || "../for_students/images/earthmap1k.jpg";
-    let bumpMapPath = params.bumpMap || "../for_students/images/earthbump1k.jpg";
+    let texturePath = params.texturePath || "../main/images/earthmap1k.jpg";
+    let bumpMapPath = params.bumpMap || "../main/images/earthbump1k.jpg";
     let texture = new T.TextureLoader().load(texturePath);
     let bumps = new T.TextureLoader().load(bumpMapPath);
     let sphere = new T.SphereBufferGeometry(radius)
@@ -45,8 +45,8 @@ let orbitPlanetCount = 0;
 export class OrbitPlanet extends GrObject {
     constructor(params = {}) {
       let radius = params.radius || 5;
-      let texturePath = params.texturePath || "../for_students/images/moon-texture.jpg";
-      let bumpMapPath = params.bumpMap || "../for_students/images/moon-texture.jpg";
+      let texturePath = params.texturePath || "../main/images/moon-texture.jpg";
+      let bumpMapPath = params.bumpMap || "../main/images/moon-texture.jpg";
       let texture = new T.TextureLoader().load(texturePath);
       let bumps = new T.TextureLoader().load(bumpMapPath);
       let sphere = new T.SphereBufferGeometry(radius)

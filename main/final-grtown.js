@@ -8,7 +8,7 @@
  * objects and behaviors, and starts things running
  *
  * The initial distributed version has a pretty empty world.
- * There are a few simple objects thrown in as examples.
+ * There are a few simple objects thrown in as objects.
  *
  * It is the students job to extend this by defining new object types
  * (in other files), then loading those files as modules, and using this
@@ -18,7 +18,7 @@
 import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
 import { WorldUI } from "../libs/CS559-Framework/WorldUI.js";
 
-import {main} from "../examples/main.js";
+import {main} from "../objects/main.js";
 import { Vector3 } from "../libs/CS559-Three/build/three.module.js";
 
 /**m

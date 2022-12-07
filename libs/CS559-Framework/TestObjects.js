@@ -4,7 +4,7 @@
 /**
  * CS559 3D World Framework Code
  *
- * Test Objects - these examples are for use in testing the framework
+ * Test Objects - these objects are for use in testing the framework
  * and are less generally useful
  *
  * @module TestObjects 

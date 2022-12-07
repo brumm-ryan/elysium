@@ -1916,19 +1916,19 @@ export const SceneUtils = {
 
 	createMultiMaterialObject: function ( /* geometry, materials */ ) {
 
-		console.error( 'THREE.SceneUtils has been moved to /examples/jsm/utils/SceneUtils.js' );
+		console.error( 'THREE.SceneUtils has been moved to /objects/jsm/utils/SceneUtils.js' );
 
 	},
 
 	detach: function ( /* child, parent, scene */ ) {
 
-		console.error( 'THREE.SceneUtils has been moved to /examples/jsm/utils/SceneUtils.js' );
+		console.error( 'THREE.SceneUtils has been moved to /objects/jsm/utils/SceneUtils.js' );
 
 	},
 
 	attach: function ( /* child, scene, parent */ ) {
 
-		console.error( 'THREE.SceneUtils has been moved to /examples/jsm/utils/SceneUtils.js' );
+		console.error( 'THREE.SceneUtils has been moved to /objects/jsm/utils/SceneUtils.js' );
 
 	}
 
@@ -1938,7 +1938,7 @@ export const SceneUtils = {
 
 export function LensFlare() {
 
-	console.error( 'THREE.LensFlare has been moved to /examples/jsm/objects/Lensflare.js' );
+	console.error( 'THREE.LensFlare has been moved to /objects/jsm/objects/Lensflare.js' );
 
 }
 
@@ -1946,27 +1946,27 @@ export function LensFlare() {
 
 export function ParametricGeometry() {
 
-	console.error( 'THREE.ParametricGeometry has been moved to /examples/jsm/geometries/ParametricGeometry.js' );
+	console.error( 'THREE.ParametricGeometry has been moved to /objects/jsm/geometries/ParametricGeometry.js' );
 	return new BufferGeometry();
 
 }
 
 export function TextGeometry() {
 
-	console.error( 'THREE.TextGeometry has been moved to /examples/jsm/geometries/TextGeometry.js' );
+	console.error( 'THREE.TextGeometry has been moved to /objects/jsm/geometries/TextGeometry.js' );
 	return new BufferGeometry();
 
 }
 
 export function FontLoader() {
 
-	console.error( 'THREE.FontLoader has been moved to /examples/jsm/loaders/FontLoader.js' );
+	console.error( 'THREE.FontLoader has been moved to /objects/jsm/loaders/FontLoader.js' );
 
 }
 
 export function Font() {
 
-	console.error( 'THREE.Font has been moved to /examples/jsm/loaders/FontLoader.js' );
+	console.error( 'THREE.Font has been moved to /objects/jsm/loaders/FontLoader.js' );
 
 }
 

@@ -29,7 +29,7 @@ export class SpaceStation extends GrObject {
   constructor(params = {}) {
     let radius = params.radius || 10;
     let tube = params.tube || 3;
-    let texturePath = params.texturePath || "../for_students/images/spaceShipTexture.jpg";
+    let texturePath = params.texturePath || "../main/images/spaceShipTexture.jpg";
     let texture = new T.TextureLoader().load(texturePath);
     
     const geometry = new T.TorusGeometry( radius, 3, 160, 100 );
