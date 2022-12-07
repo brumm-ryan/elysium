@@ -8,22 +8,21 @@ import { OBJLoader } from "../libs/CS559-Three/examples/jsm/loaders/OBJLoader.js
 
 let SpaceShipCount = 0;
 
-export class SpaceMan extends Loaders.ObjGrObject {
+export class SpaceShip extends Loaders.ObjGrObject {
     constructor(params = {}) {
     let mat = new MeshStandardMaterial({
         color:"#808080"
     });
     super({
-        obj:'../for_students/images/07-astronaut.obj',
+        obj:'../main/images/tiefighter.obj',
         norm:8.0,
         name:`SpaceShip`,
+        mtl:'../main/images/spaceShipTexture.jpg'
+        
     })
   }
-  
   stepWorld(delta, timeOfDay) {
-    this.objects[0].rotateY(delta * 0.0015);
-    this.objects[0].rotateZ(delta * 0.0013);
-    this.objects[0].rotateX(delta * 0.0016);
+    this.objects[0].rotateY(delta * 0.001);
     this.u += delta;
     if(this.u > Math.PI * 2) {
         this.u = 0;

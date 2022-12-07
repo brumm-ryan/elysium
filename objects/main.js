@@ -10,7 +10,7 @@
 //
 // It should be called from the onload function, after the world has been created
 
-/** These imports are for the examples - feel free to remove them */
+/** These imports are for the objects - feel free to remove them */
 import { SqrHouse, RectHouse, GrTree } from "./house.js";
 import { SpaceMan } from "./spaceman.js";
 import { Satelite } from "./satelite.js";
@@ -35,7 +35,7 @@ import { droneCraft } from "./drone.js";
 export function main(world) {
 
   const loader = new T.CubeTextureLoader();
-  loader.setPath( '../for_students/images/' );
+  loader.setPath( '../main/images/' );
   //create space skybox
   const textureCube = loader.load( [
     'corona_ft.png','corona_bk.png', 'corona_up.png',
@@ -45,12 +45,12 @@ export function main(world) {
   //build our spacestation elysium
   let ssRad = 15;
   let spaceStation = new SpaceStation({radius:ssRad, tube:5}); 
-  let moon = new OrbitPlanet({radius:10, x: -60, texturePath:"../for_students/images/moon-texture.jpg", orbitRadius:110});
+  let moon = new OrbitPlanet({radius:10, x: -60, texturePath:"../main/images/moon-texture.jpg", orbitRadius:110});
 
   //create some randomly orbiting asteroids
   let numAsteroids = 5;
   for(let i = 0; i < numAsteroids; i++) {
-    world.add(new OrbitPlanet({radius:i*2, x: -70 - 5 * i, texturePath:"../for_students/images/Meteor-texture.jpg", orbitRadius:100 - i * 5, u:i, isAsteroid:true}))
+    world.add(new OrbitPlanet({radius:i*2, x: -70 - 5 * i, texturePath:"../main/images/Meteor-texture.jpg", orbitRadius:100 - i * 5, u:i, isAsteroid:true}))
   }
   world.add(moon);
   world.add(new SmallPlanet({radius:40, x:55}));
@@ -59,7 +59,7 @@ export function main(world) {
   //build a couple satelites
   let numSatelites = 2;
 
-  let sateliteMat = shaderMaterial("../examples/satelite.vs", "../examples/satelite.fs", {
+  let sateliteMat = shaderMaterial("../objects/satelite.vs", "../objects/satelite.fs", {
     side: T.DoubleSide,
     uniforms: {
       radius: { value: 0.1 },
