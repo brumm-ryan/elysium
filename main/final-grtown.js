@@ -28,8 +28,8 @@ import { Vector3 } from "../libs/CS559-Three/build/three.module.js";
 
 // make the world
 let world = new GrWorld({
-    width: 800,
-    height: 600,
+    width: screen.availWidth,
+    height: screen.availHeight,
     groundplane: false, // make the ground plane big enough for a world of stuff
     lookat: new Vector3(-20,30,-20),
     lookfrom: new Vector3(-90, 30, -20)
@@ -40,31 +40,6 @@ let world = new GrWorld({
 // this calls the example code (that puts a lot of objects into the world)
 // you can look at it for reference, but do not use it in your assignment
 main(world);
-
-// while making your objects, be sure to identify some of them as "highlighted"
-
-///////////////////////////////////////////////////////////////
-// because I did not store the objects I want to highlight in variables, I need to look them up by name
-// This code is included since it might be useful if you want to highlight your objects here
-function highlight(obName) {
-    const toHighlight = world.objects.find(ob => ob.name === obName);
-    if (toHighlight) {
-        toHighlight.highlighted = true;
-    } else {
-        throw `no object named ${obName} for highlighting!`;
-    }
-}
-// of course, the student should highlight their own objects, not these
-highlight("SpaceStation-0");
-highlight("SpaceShip");
-highlight("Satelite-1");
-highlight("OrbitPlanet-1");
-highlight("SpaceTrain-1");
-highlight("SpaceTrain-1");
-highlight("SmallPlanet-0");
-highlight("Drone-1");
-highlight("SpaceTrain-1");
-
 
 ///////////////////////////////////////////////////////////////
 // build and run the UI
