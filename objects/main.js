@@ -56,27 +56,6 @@ export function main(world) {
   world.add(new SmallPlanet({radius:40, x:55}));
   world.add(spaceStation);
 
-  //build a couple satelites
-  let numSatelites = 2;
-
-  let sateliteMat = shaderMaterial("../objects/satelite.vs", "../objects/satelite.fs", {
-    side: T.DoubleSide,
-    uniforms: {
-      radius: { value: 0.1 },
-      dots: { value: 5.0 },
-      light: { value: new T.Vector3(0.85, 0.85, 0.85) },
-      dark: { value: new T.Vector3(0.5, 0.5, 0.5) },
-      disp: { value: 3.0 },
-      blur: { value: 0.1 }
-    },
-  });
-  
-  for(let i = 0; i < numSatelites; i++) {
-    let s = new Satelite({x:-20,y:30 - 20 * i,z:-20, radius:2, material:sateliteMat, orbitRadius:20, u:i * 2});
-    world.add(s);
-  }
-
-
   // //Add space train to elysium to help citizens navigate
   
   //train 1
