@@ -17,7 +17,10 @@ export function main(world) {
   const textureCube = loader.load( [
     'corona_ft.png','corona_bk.png', 'corona_up.png',
     'corona_dn.png', 'corona_rt.png', 'corona_lf.png', 
-  ]);
+  ], function () {
+    textureCube.needsUpdate = true;
+    console.log('Updated texturecube');
+  });
   world.scene.background = textureCube;
   //build our spacestation elysium
   let ssRad = 15;
