@@ -10,9 +10,6 @@ let SpaceShipCount = 0;
 
 export class SpaceShip extends Loaders.ObjGrObject {
     constructor(params = {}) {
-    let mat = new MeshStandardMaterial({
-        color:"#808080"
-    });
     super({
         obj:'../main/images/tiefighter.obj',
         norm:4.0,

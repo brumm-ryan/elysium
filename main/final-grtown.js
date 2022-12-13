@@ -54,5 +54,4 @@ function highlight(obName) {
         throw `no object named ${obName} for highlighting!`;
     }
 }
-
 world.go();

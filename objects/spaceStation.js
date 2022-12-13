@@ -67,7 +67,7 @@ export class SpaceStation extends GrObject {
     g.add(leftSupportMesh);
     g.add(rightSupportMesh);
     let numTrees = 120;
-    //add houses and trees to elysium
+   
     //add trees to elysium
     for (let i = 0; i < numTrees; i += 1) {
       let angle = (((numTrees  - 1) / (Math.PI)) * i) +  (Math.PI / 5)

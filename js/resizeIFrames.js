@@ -4,7 +4,7 @@
 // use it to not pollute the global context
 (function() {
     function resizeIframe(obj) {
-        obj.style.height = (obj.contentWindow.document.body.offsetHeight + 32) + "px";
+        obj.style.height = (obj.contentWindow.document.body.offsetHeight) + "px";
     }
     let oldOnload = window.onload;
     let resizeFunc = function() {
