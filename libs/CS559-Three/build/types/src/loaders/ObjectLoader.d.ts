@@ -8,7 +8,7 @@ import { InstancedBufferGeometry } from '../core/InstancedBufferGeometry';
 import { BufferGeometry } from '../core/BufferGeometry';
 
 export class ObjectLoader extends Loader {
-    constructor(manager?: LoadingManager);
+constructor(manager?: LoadingManager);
 
     load(
         url: string,

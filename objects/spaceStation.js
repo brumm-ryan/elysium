@@ -66,26 +66,16 @@ export class SpaceStation extends GrObject {
     g.add(insideRing);
     g.add(leftSupportMesh);
     g.add(rightSupportMesh);
-    let numHouses = 16.0;
-    let numTrees = 5;
+    let numTrees = 120;
     //add houses and trees to elysium
-    for (let i = 0; i < numHouses; i += 1) {
-      let angle = ((numHouses) / (Math.PI * 2)) * i
-      let x = mesh.position.x + Math.cos(angle) * radius;
-      let z = mesh.position.y + Math.sin(angle) * radius;
-      let y =mesh.position.z + 4;
-      let house = new SqrHouse({ x: x, y:y, z:z, xrot:Math.PI/2});
-      g.add(house.objects[0]);
-      //world.add(new GrTree({x:i+ 2, y:1, z:12 +  2 * (i % 2)}));
-      //world.add(new RectHouse({ x: i, y:1, z: -12 }));
-    }
     //add trees to elysium
     for (let i = 0; i < numTrees; i += 1) {
       let angle = (((numTrees  - 1) / (Math.PI)) * i) +  (Math.PI / 5)
       let x = mesh.position.x + Math.cos(angle) * radius;
       let z = mesh.position.y + Math.sin(angle) * radius;
-      let y = mesh.position.z + 4;
+      let y = mesh.position.z + 3;
       let tree = new GrTree({ x: x, y:y, z:z, });
+      tree.setScale(0.25)
       g.add(convertToGroup(tree));
       //world.add(new GrTree({x:i+ 2, y:1, z:12 +  2 * (i % 2)}));
       //world.add(new RectHouse({ x: i, y:1, z: -12 }));

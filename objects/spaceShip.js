@@ -15,7 +15,7 @@ export class SpaceShip extends Loaders.ObjGrObject {
     });
     super({
         obj:'../main/images/tiefighter.obj',
-        norm:8.0,
+        norm:4.0,
         name:`SpaceShip`,
         mtl:'../main/images/spaceShipTexture.jpg'
         
