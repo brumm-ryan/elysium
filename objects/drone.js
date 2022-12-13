@@ -82,7 +82,7 @@ export class droneCraft extends GrObject {
   stepWorld(delta, timeOfDay) {
     
     //this.objects[0].rotateZ(delta * 0.0013);
-    this.objects[0].rotateX(delta * -0.0016);
+    this.objects[0].rotateX(delta * -0.0003);
     this.u += delta;
     if(this.u > Math.PI * 2) {
         this.u = 0;

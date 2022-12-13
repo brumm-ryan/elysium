@@ -11,18 +11,13 @@ let SpaceShipCount = 0;
 export class SpaceMan extends Loaders.ObjGrObject {
     constructor(params = {}) {
     super({
-        obj:'../main/images/07-astronaut.obj',
+        obj:'main/images/07-astronaut.obj',
         norm:4.0,
         name:`SpaceMan`,
-        mtl:'../main/images/Meteor-texture.jpg'
+        mtl:'main/images/Meteor-texture.jpg'
     })
   }
   
   stepWorld(delta, timeOfDay) {
-    this.objects[0].rotateY(delta * 0.0015);
-    this.u += delta;
-    if(this.u > Math.PI * 2) {
-        this.u = 0;
-    }
   }
 }
