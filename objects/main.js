@@ -10,16 +10,16 @@ import { SpaceShip } from "./spaceShip.js";
 import { droneCraft } from "./drone.js";
 
 export function main(world) {
-
+  
   const loader = new T.CubeTextureLoader();
   loader.setPath( '../main/images/' );
   //create space skybox
-  const textureCube = loader.load( [
+  const textureCube = loader.load([
     'corona_ft.png','corona_bk.png', 'corona_up.png',
     'corona_dn.png', 'corona_rt.png', 'corona_lf.png', 
-  ], function () {
-    textureCube.needsUpdate = true;
-    console.log('Updated texturecube');
+  ], function() {
+    world.draw()
+    console.log('drew the skybox')
   });
   world.scene.background = textureCube;
   //build our spacestation elysium
