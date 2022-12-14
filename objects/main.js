@@ -12,7 +12,7 @@ import { droneCraft } from "./drone.js";
 export function main(world) {
   
   const loader = new T.CubeTextureLoader();
-  loader.setPath( '../main/images/' );
+  loader.setPath( 'main/images/' );
   //create space skybox
   const textureCube = loader.load([
     'corona_ft.png','corona_bk.png', 'corona_up.png',
@@ -20,11 +20,12 @@ export function main(world) {
   ], function() {
     world.draw()
     console.log('drew the skybox')
-  });
-  world.scene.background = textureCube;
+    world.scene.background = textureCube;
+  }
+  );
   //build our spacestation elysium
   let ssRad = 15;
-  let spaceStation = new SpaceStation({radius:ssRad, tube:5}); 
+  let spaceStation = new SpaceStation({radius:ssRad, tube:5, world:world}); 
   let moon = new OrbitPlanet({radius:10, x: -60, texturePath:"main/images/moon-texture.jpg", orbitRadius:110});
 
   //create some randomly orbiting asteroids

@@ -1,19 +1,9 @@
 import * as T from "../libs/CS559-Three/build/three.module.js";
-import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
 import { GrObject } from "../libs/CS559-Framework/GrObject.js";
-import * as Loaders from "../libs/CS559-Framework/loaders.js";
-import { GrCube } from "../libs/CS559-Framework/SimpleObjects.js";
-import { Color, Group, Vector3 } from "../libs/CS559-Three/build/three.module.js";
-import { SqrHouse, RectHouse, GrTree } from "./house.js";
-import { CircularTrack, SpaceTrain } from "./track.js";
-import { Helicopter, Helipad } from "./helicopter.js";
-
-/**
- * This is a really simple track - just a circle
- * But in addition to having geometry, objects on the track can ask for their
- * position (given their U value).
- * They can also ask for the direction vector.
- */
+import { Group, Vector3 } from "../libs/CS559-Three/build/three.module.js";
+import { GrTree } from "./house.js";
+import { Helipad } from "./helicopter.js";
+import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
 
 let SpaceStationCount = 0;
 
@@ -30,15 +20,17 @@ export class SpaceStation extends GrObject {
     let radius = params.radius || 10;
     let tube = params.tube || 3;
     let texturePath = params.texturePath || "../main/images/spaceShipTexture.jpg";
-    let texture = new T.TextureLoader().load(texturePath);
     
     const geometry = new T.TorusGeometry( radius, 3, 160, 100 );
     let material = new T.MeshStandardMaterial({
-        map:texture,
-        normalMap:texture,
         metalness:0.4,
         roughness:0.2,
         color:'white'
+    });
+    let texture = new T.TextureLoader().load(texturePath,  function(t) {
+      material.map = t
+      material.normalMap = t
+      material.needsUpdate = true
     });
 
     const centerGeo = new T.TorusGeometry( 5, 1, 160, 100 );
@@ -67,7 +59,7 @@ export class SpaceStation extends GrObject {
     g.add(leftSupportMesh);
     g.add(rightSupportMesh);
     let numTrees = 120;
-   
+    //add houses and trees to elysium
     //add trees to elysium
     for (let i = 0; i < numTrees; i += 1) {
       let angle = (((numTrees  - 1) / (Math.PI)) * i) +  (Math.PI / 5)
